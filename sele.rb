@@ -17,9 +17,20 @@ query.send_keys('web制作会社　パートナー')
 
 # # 送信(検索)
 query.submit
+i=0
+5.times do
+  i = i + 1
+  session.find_elements(:class, "yuRUbf"). each do |title|
+  puts title.find_element(:tag_name, "a").attribute("href")
+  end
 
-puts session.find_element(:xpath,"/html/body/div[7]/div/div[10]/div[1]/div/div[2]/div[2]/div/div/div[2]/div/div/div[1]/a/h3
-  ").text
+  if session.find_elements(:xpath, '//*[@id="pnnext"]').size >0
+    session.find_element(:xpath, '//*[@id="pnnext"]').click
+    sleep(2)
+  else
+  break
+  end
+end 
 
 # # 5秒遅延(処理が早すぎてページ遷移前にスクリーンショットされてしまうため)
 sleep(5)
@@ -28,7 +39,7 @@ sleep(5)
 # if session.save_screenshotzenn.png')
 #   # スクリーンショットができたら出力する
 #   puts "スクリーンショットされました！"
-# end
+
 
 # ブラウザを終了
 session.quit
